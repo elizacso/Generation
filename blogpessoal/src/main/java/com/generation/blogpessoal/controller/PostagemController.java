@@ -30,7 +30,7 @@ import jakarta.validation.Valid;
 public class PostagemController {
 
 	@Autowired
-	private PostagemRepository postagemRepository;
+	private PostagemRepository postagemRepository; /*inversão de controle/passa a responsabilidade da repository pra controller*/
 	
 	@GetMapping
 	public ResponseEntity<List<Postagem>> getAll(){
@@ -53,7 +53,7 @@ public class PostagemController {
 				.body(postagemRepository.save(postagem));
 	}
 	
-	@PutMapping
+	@PutMapping 
 	public ResponseEntity<Postagem> put (@Valid @RequestBody Postagem postagem){
 		return postagemRepository.findById(postagem.getId())
 				.map(resposta -> ResponseEntity.status(HttpStatus.OK)

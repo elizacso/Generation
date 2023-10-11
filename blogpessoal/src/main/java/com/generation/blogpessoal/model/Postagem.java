@@ -16,30 +16,34 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 
-@Entity
+@Entity /*anotação que implica que essa classe será um Model*/
 @Table(name = "tb_postagens")
 
 public class Postagem {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Id /*PRIMARY KEY(id)*/
+	@GeneratedValue(strategy = GenerationType.IDENTITY) /*auto informated*/
+	private Long id; /*atributo/campo da tabela*/
 	
-	@NotBlank(message = "O atributo título é obrigatório")
-	@Size(min = 5, max = 100, message = "O atributo título deve conter no mínimo 05 caracteres, e no máximo 100")
-	private String titulo;
+	@NotBlank(message = "O atributo título é obrigatório") /*não pode ser vazio; mais restritiva que a not null*/
+	@Size(min = 5, max = 100, message = "O atributo título deve conter no mínimo 05 caracteres, e no máximo 100")/*delimita o campo*/
+	private String titulo; /*atributo/campo da tabela*/
 	
 	@NotBlank(message = "O atributo texto é obrigatório")
 	@Size(min = 10, max = 1000, message = "O atributo texto deve conter no mínimo 10 caracteres, e no máximo 1000")
-	private String texto;
+	private String texto; /*atributo/campo da tabela*/
 	
-	@UpdateTimestamp
-	private LocalDateTime data;
+	@UpdateTimestamp /*registra a data/hora*/
+	private LocalDateTime data; /*atributo/campo da tabela*/
 	
 	@ManyToOne
-	@JsonIgnoreProperties("postagens")
+	@JsonIgnoreProperties("postagem")
 	private Tema tema;
 	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
+
 
 	public Long getId() {
 		return id;
@@ -79,6 +83,14 @@ public class Postagem {
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 	
